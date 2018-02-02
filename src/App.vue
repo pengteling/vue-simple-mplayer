@@ -21,7 +21,10 @@
 <script>
 import {MUSIC_LIST} from './data/MusicList'
 //import Mplayer from './mplayer.vue'
-import Mplayer from './main.js'
+import Mplayer from './../dist/simpleMplayer.js'
+import Vue from 'vue'
+Vue.use(Mplayer)
+
 export default {
   components:{
     Mplayer

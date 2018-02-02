@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/simpleMplayer.js",
+  "private": false,
   "repository": {
     "type":"git",
     "url":"https://github.com/pengteling/vue-simple-mplayer"
@@ -31,12 +32,13 @@
     "postcss-loader": "^2.0.10",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
-    "url-loader": "^0.6.2",
-    "vue": "^2.5.13",
+    "url-loader": "^0.6.2",    
     "vue-loader": "^14.0.1",
     "vue-template-compiler": "^2.5.13",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "vue": "^2.5.13"
+  }
 }

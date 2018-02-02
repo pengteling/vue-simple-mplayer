@@ -9,8 +9,11 @@ const config = {
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        libraryTarget: "umd",
+        //library: "simpleMplayer"   
     },
+    
     // resolve:{
     //     extensions: ['*', '.js', '.jsx'],
     //     alias:{
@@ -28,14 +31,14 @@ const config = {
                 test: /\.jsx$/,
                 loader: 'babel-loader'
             },
-            {
-                test: /\.css$/,
-                // loader: 'css-loader'
-                use:[
-                    'style-loader',
-                    'css-loader'
-                ]
-            },
+            // {
+            //     test: /\.css$/,
+            //     // loader: 'css-loader'
+            //     use:[
+            //         'style-loader',
+            //         'css-loader'
+            //     ]
+            // },
 
             {
                 test: /\.(jpg|gif|jpeg|png|svg|eot)$/,
@@ -51,16 +54,23 @@ const config = {
             }
         ]
     },
+    // resolve: {
+    //     extensions: ['*', '.js', '.jsx'],
+    //     alias: {
+    //         'vue$': 'vue/dist/vue.js'
+    //     }
+    // },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: isDev ? '"development"' : '"production"'
             }
         }),
-        new HtmlWebpackPlugin()
+        
     ]
 }
 if (isDev) {
+  
     config.devtool = 'cheap-module-eval-source-map'
     config.devServer = {
         port: 8080,
@@ -73,6 +83,7 @@ if (isDev) {
         // open : true //默认打开浏览器
     }
     config.plugins.push(
+        new HtmlWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin() //减少不需要的信息展示
         //new webpack.
@@ -96,12 +107,14 @@ if (isDev) {
             ]
         }
     )
+    
 }
 else { //生产环境
     config.entry ={
-        simpleMplayer: path.resolve(__dirname, 'src/app.vue'),
-        vendor: ['vue']
+        simpleMplayer: path.resolve(__dirname, 'src/mplayer.vue'),
+        //vendor: ['vue']
     }
+    
     config.module.rules.push(
         {
             test: /\.scss$/,
@@ -124,13 +137,13 @@ else { //生产环境
         }
     )
     config.plugins.push(
-        new webpack.optimize.CommonsChunkPlugin({
-            name:'vendor'
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name:'runtime'
-        }),
-        new ExtractTextPlugin('style.[contentHash:8].css'),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name:'vendor'
+        // }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name:'runtime'
+        // }),
+        new ExtractTextPlugin('style.css'),
         new webpack.LoaderOptionsPlugin({  //将.vue中的css 单独打包成Css文件
             test:/\.vue$/,  
             options: {  
@@ -155,6 +168,8 @@ else { //生产环境
             }  
         })  
     )
+
+ 
     config.output.filename = '[name].js'
     
 }
