@@ -155,7 +155,7 @@ else { //生产环境
             }  
         })  
     )
-    config.output.filename = '[name]-[chunkhash:8].js'
+    config.output.filename = '[name].js'
     
 }
 

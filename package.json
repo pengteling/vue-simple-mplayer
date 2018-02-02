@@ -2,7 +2,11 @@
   "name": "vue-simple-mplayer",
   "version": "1.0.0",
   "description": "",
-  "main": "webpack.config.js",
+  "main": "dist/simpleMplayer.js",
+  "repository": {
+    "type":"git",
+    "url":"https://github.com/pengteling/vue-simple-mplayer"
+  },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js"

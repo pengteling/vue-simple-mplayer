@@ -20,7 +20,8 @@
 </template>
 <script>
 import {MUSIC_LIST} from './data/MusicList'
-import Mplayer from './mplayer.vue'
+//import Mplayer from './mplayer.vue'
+import Mplayer from './main.js'
 export default {
   components:{
     Mplayer
