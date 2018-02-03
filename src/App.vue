@@ -4,58 +4,51 @@
       :opt="opt"
       @timeupdate="timeupdate"
       @loadedmetadata="loadedmetadata"        
-      :ref="opt.id"   
+      ref="player"   
     >
     </mplayer>
-    <input type="range" v-model="volume" @change="setVolume(opt.id,volume)">
-    <mplayer 
-      :opt="opt2"
-      @timeupdate="timeupdate"
-      @loadedmetadata="loadedmetadata"     
-      :ref="opt2.id"  
-    >
-    </mplayer>
-    <span class="timer"></span>
+    <input type="range" v-model="volume" @change="setVolume(volume)">
+    <button ></button>    
+    <span class="timer">{{currentTime}} / {{ duration }}</span>
   </div>
 </template>
 <script>
-import {MUSIC_LIST} from './data/MusicList'
-//import Mplayer from './mplayer.vue'
-import Mplayer from './../dist/simpleMplayer.js'
-import Vue from 'vue'
-Vue.use(Mplayer)
+import { MUSIC_LIST } from "./data/MusicList";
+import Mplayer from "./mplayer.vue";
+//import Mplayer from './../dist/simpleMplayer.js'
+import Vue from "vue";
+Vue.use(Mplayer);
 
 export default {
-  components:{
+  components: {
     Mplayer
   },
-  data(){
-    return{      
-      opt:{
-        id:"m1",
-        url:MUSIC_LIST[2].file
-      },
-      opt2:{
-        id:"m2",
-        url:MUSIC_LIST[3].file,
-        autoplay:false
-      },
-      volume:0
-    }
+  data() {
+    return {
+      opt: {
+        id: "m1",
+        url: MUSIC_LIST[2].file
+      },      
+      volume: 80     ,
+      duration:0,
+      currentTime:0
+    };
+  }, 
+  computed:{
+    
   },
-  methods:{
-   timeupdate(currentTime,id){ //获取当前时间
-     //console.log(id,time)
-   },
-   loadedmetadata(duration,id){ //获取总时长
-     console.log(duration,id)
-   },
-   setVolume(audio,volume){
-     //this.$refs[audio].setVolume(volume)
-     console.log(audio,volume)
-    //  this.$refs[audio].setVolume(volume)
-    this.$refs[audio].setVolume(volume/100)
-   }
+  methods: {
+    timeupdate(currentTime) {
+      //获取当前时间
+      //console.log(id,time)
+      this.currentTime = currentTime
+    },
+    loadedmetadata(duration){
+      this.duration = duration
+    },
+    setVolume(volume) {
+      this.$refs.player.setVolume(volume / 100);
+    }
   }
-}
+};
 </script>

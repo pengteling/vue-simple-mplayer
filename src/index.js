@@ -1,6 +1,6 @@
 import Vue from 'vue'
 //import Vue from "vue/dist/vue.common.js";
-import App from './App.vue'
+import App from './App.jsx'
 
 const root = document.createElement('div')
 document.body.appendChild(root)
