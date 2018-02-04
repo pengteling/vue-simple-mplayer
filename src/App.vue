@@ -9,12 +9,13 @@
     </mplayer>
     <input type="range" v-model="volume" @change="setVolume(volume)">
     <button ></button>    
-    <span class="timer">{{currentTime}} / {{ duration }}</span>
+    <span class="timer">{{timestr}} </span>
   </div>
 </template>
 <script>
-import { MUSIC_LIST } from "./data/MusicList";
-import Mplayer from "./mplayer.vue";
+import { MUSIC_LIST } from "./data/MusicList"
+import { fromatTime } from "./utils"
+import Mplayer from "./mplayer.vue"
 //import Mplayer from './../dist/simpleMplayer.js'
 import Vue from "vue";
 Vue.use(Mplayer);
@@ -35,7 +36,9 @@ export default {
     };
   }, 
   computed:{
-    
+   timstr (){
+      return fromatTime(this.currentTime)
+    }
   },
   methods: {
     timeupdate(currentTime) {

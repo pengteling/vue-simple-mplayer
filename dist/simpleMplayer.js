@@ -101,11 +101,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 var defaultOptions = {
   id: 'mplayer',
   autoplay: true,
-  volume: 80,
   loop: false,
   url: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3'
 };
@@ -122,7 +124,8 @@ exports.default = {
       //options: Object.assign(defaultOptions ,this.opt).clone()  
       options: _extends({}, defaultOptions, this.opt),
       currentTime: 0,
-      duration: 0
+      duration: 0,
+      volume: 0.8
     };
   },
 
@@ -132,26 +135,57 @@ exports.default = {
     }
   },
   methods: {
+
+    // playPause(){
+    //   this.status = this.audio.paused ? 'pause' : 'play'
+    // },
+    // play(){
+    //   this.audio.play()
+    // },
+    // pause(){
+    //   this.audio.pause()
+    // },
+    doPlayPause: function doPlayPause() {
+      if (this.audio.paused) {
+        this.audio.play();
+      } else {
+        this.audio.pause();
+      }
+    },
+    playPause: function playPause() {
+      this.$emit("playPause", this.audio.paused);
+    },
+    getPaused: function getPaused() {
+      return this.audio.paused;
+    },
     timeupdate: function timeupdate() {
       this.currentTime = this.audio.currentTime;
-      this.$emit("timeupdate", this.audio.currentTime, this.options.id);
+      this.$emit("timeupdate", this.audio.currentTime);
     },
     loadedmetadata: function loadedmetadata() {
-      // this.$emit("loadedmetadata",{
-      //   duration:  this.audio.duration
-      // })
       this.duration = this.audio.duration;
-      this.$emit("loadedmetadata", this.audio.duration, this.options.id);
+      this.audio.volume = this.volume;
+      this.$emit("initVolume", this.volume);
+
+      this.$emit("loadedmetadata", this.audio.duration);
     },
     setVolume: function setVolume(volume) {
       this.audio.volume = volume;
+      this.volume = volume;
+      this.$emit("initVolume", this.volume);
+    },
+    getVolume: function getVolume() {
+      return this.audio.volume;
     },
     setCurrentTime: function setCurrentTime(time) {
-      this.audio.setCurrentTime = time;
+      // console.log(time)
+      // this.audio.pause()
+      this.audio.currentTime = time;
+      // this.audio.play()
     }
   },
   mounted: function mounted() {
-    console.log(this.options);
+    //console.log(this.options)
   }
 };
 
@@ -164,7 +198,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mplayer_vue__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mplayer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mplayer_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mplayer_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mplayer_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2c6ffd56_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_mplayer_vue__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5840afd8_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_mplayer_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(8);
 function injectStyle (context) {
   __webpack_require__(2)
@@ -179,14 +213,14 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-2c6ffd56"
+var __vue_scopeId__ = "data-v-5840afd8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mplayer_vue___default.a,
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2c6ffd56_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_mplayer_vue__["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2c6ffd56_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_mplayer_vue__["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5840afd8_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_mplayer_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5840afd8_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_mplayer_vue__["b" /* staticRenderFns */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -208,7 +242,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(5).default
-var update = add("6be7346c", content, true, {});
+var update = add("335e4c04", content, true, {});
 
 /***/ }),
 /* 3 */
@@ -219,7 +253,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".mplayer audio[data-v-5840afd8]{display:none}", ""]);
 
 // exports
 
@@ -580,7 +614,7 @@ function listToStyles (parentId, list) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"mplayer"},[_c('audio',{ref:_vm.options.id,attrs:{"id":_vm.options.id,"controls":"","src":_vm.options.url,"autoplay":_vm.options.autoplay,"loop":_vm.options.loop},on:{"timeupdate":_vm.timeupdate,"loadedmetadata":_vm.loadedmetadata}})])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"mplayer"},[_c('audio',{ref:_vm.options.id,attrs:{"id":_vm.options.id,"controls":"","src":_vm.options.url,"autoplay":_vm.options.autoplay,"loop":_vm.options.loop},on:{"timeupdate":_vm.timeupdate,"loadedmetadata":_vm.loadedmetadata,"play":_vm.playPause,"pause":_vm.playPause}})])}
 var staticRenderFns = []
 
 
@@ -662,7 +696,7 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles(this.$root.$options.shadowRoot) }
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
       : injectStyles
   }
 

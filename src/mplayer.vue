@@ -9,6 +9,8 @@
       :ref="options.id"
       @timeupdate="timeupdate"
       @loadedmetadata="loadedmetadata" 
+      @play="playPause"
+      @pause="playPause"
       
     >
     </audio>
@@ -34,8 +36,7 @@ export default {
       //options: Object.assign(defaultOptions ,this.opt).clone()  
       options:{...defaultOptions,...this.opt }    ,
       currentTime:0,
-      duration:0,
-      status:'pause',
+      duration:0,      
       volume:0.8
     }
   },
@@ -48,14 +49,27 @@ export default {
   },
   methods:{
     
+    // playPause(){
+    //   this.status = this.audio.paused ? 'pause' : 'play'
+    // },
+    // play(){
+    //   this.audio.play()
+    // },
+    // pause(){
+    //   this.audio.pause()
+    // },
+    doPlayPause(){
+      if(this.audio.paused){
+        this.audio.play()
+      }else{
+        this.audio.pause()
+      }
+    },
     playPause(){
-      this.status = this.audio.paused ? 'pause' : 'play'
+      this.$emit("playPause",this.audio.paused)
     },
-    play(){
-      this.audio.play()
-    },
-    pause(){
-      this.audio.pause()
+    getPaused(){
+      return this.audio.paused
     },
     timeupdate(){
       this.currentTime =  this.audio.currentTime
@@ -70,12 +84,17 @@ export default {
     },
     setVolume(volume){
       this.audio.volume = volume
+      this.volume = volume
+      this.$emit("initVolume",this.volume)
     },
     getVolume(){
       return this.audio.volume
     },
     setCurrentTime(time){
-      this.audio.setCurrentTime = time
+      // console.log(time)
+      // this.audio.pause()
+      this.audio.currentTime = time
+      // this.audio.play()
     }
   },
   mounted(){
