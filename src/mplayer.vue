@@ -95,7 +95,11 @@ export default {
       // this.audio.pause()
       this.audio.currentTime = time
       // this.audio.play()
+    },
+    setSrc(url){
+      this.audio.src = url
     }
+
   },
   mounted(){
     //console.log(this.options)

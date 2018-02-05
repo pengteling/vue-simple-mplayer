@@ -59,6 +59,9 @@ export default {
       let progress = e.target.value
       let currentTime = this.duration * progress /100
       this.$refs.audio.setCurrentTime(currentTime)
+    },
+    changeSrc(url){
+      this.$refs.audio.setSrc(url)
     }
   },
   mounted(){
@@ -75,11 +78,13 @@ export default {
          onTimeupdate={this.timeupdate}
          onLoadedmetadata ={this.loadedmetadata}
          onPlayPause={this.onplayPause}
+
         />
         音量：<input type="range" onChange={this.changeVolume} value={this.volume} ref="range"/>
         <button onClick={this.playPause}>{this.paused? "播放":"暂停"}</button>
         进度条：<input type="range" value={this.currentPercentAbsolute} onChange={this.changeProgress} ref="progress"/>
         <span class="timer">{this.timestr}</span>
+        切换：<button onClick={this.changeSrc.bind(this,MUSIC_LIST[4].file)}>切换</button>
       </div>
     )
   }
