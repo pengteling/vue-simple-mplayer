@@ -62,6 +62,9 @@ export default {
     },
     changeSrc(url){
       this.$refs.audio.setSrc(url)
+    },
+    onEnded(){
+      console.log("ended")
     }
   },
   mounted(){
@@ -78,6 +81,7 @@ export default {
          onTimeupdate={this.timeupdate}
          onLoadedmetadata ={this.loadedmetadata}
          onPlayPause={this.onplayPause}
+         onEnded={this.onEnded}
 
         />
         音量：<input type="range" onChange={this.changeVolume} value={this.volume} ref="range"/>
